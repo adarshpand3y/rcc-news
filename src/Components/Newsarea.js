@@ -5,7 +5,10 @@ export default class Newsarea extends Component {
     constructor() {
         super();
         this.state = {
+            totalResults: 0,
             articles: [],
+            page: 1,
+            totalNumberOfPages: 0,
             loading: true
         }
     }
@@ -14,7 +17,7 @@ export default class Newsarea extends Component {
         const url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb";
         const data = await fetch(url);
         const parsedData = await data.json();
-        this.setState({articles: parsedData["articles"], loading: false});
+        this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(this.state.totalResults/20), loading: false});
     }
 
     render() {
