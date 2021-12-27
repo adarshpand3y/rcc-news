@@ -9,15 +9,34 @@ export default class Newsarea extends Component {
             articles: [],
             page: 1,
             totalNumberOfPages: 0,
+            pageSize: 5,
             loading: true
         }
     }
 
+    updateNews = async () => {
+        await this.setState({loading: true, articles: []});
+        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+        const data = await fetch(url);
+        const parsedData = await data.json();
+        await this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, loading: false });
+    }
+
     async componentDidMount() {
-        const url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb";
+        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
         const data = await fetch(url);
         const parsedData = await data.json();
         this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(this.state.totalResults / 20), loading: false });
+    }
+
+    handleNextClick = () => {
+        this.setState({ page: this.state.page + 1 });
+        this.updateNews();
+    }
+
+    handlePrevClick = () => {
+        this.setState({ page: this.state.page - 1 });
+        this.updateNews();
     }
 
     render() {
@@ -39,8 +58,8 @@ export default class Newsarea extends Component {
                         date={element.publishedAt} />
                 })}
                 <div className="d-flex justify-content-between">
-                    <button type="button" className="btn btn-primary">&laquo; Previous</button>
-                    <button type="button" className="btn btn-primary">Next &raquo;</button>
+                    <button disabled={this.state.page <= 1} type="button"onClick={this.handlePrevClick} className="btn btn-light">&laquo; Previous</button>
+                    <button disabled={this.state.page + 1 >Math.ceil(this.state.totalResults/this.state.pageSize)} type="button"onClick={this.handleNextClick} className="btn btn-light">Next &raquo;</button>
                 </div>
             </div>
         )
