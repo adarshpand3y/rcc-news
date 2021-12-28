@@ -17,14 +17,14 @@ export default class Newsarea extends Component {
 
     updateNews = async () => {
         this.setState({ loading: true, articles: [] });
-        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
         const data = await fetch(url);
         const parsedData = await data.json();
         this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, loading: false });
     }
 
     async componentDidMount() {
-        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
         const data = await fetch(url);
         const parsedData = await data.json();
         this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(this.state.totalResults / 20), loading: false });
