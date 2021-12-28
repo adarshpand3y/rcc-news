@@ -20,14 +20,14 @@ export default class Newsarea extends Component {
         const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
         const data = await fetch(url);
         const parsedData = await data.json();
-        this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, loading: false });
+        this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(parsedData.totalResults / this.state.pageSize), loading: false });
     }
 
     async componentDidMount() {
         const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
         const data = await fetch(url);
         const parsedData = await data.json();
-        this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(this.state.totalResults / 20), loading: false });
+        this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(parsedData.totalResults / this.state.pageSize), loading: false });
     }
 
     handleNextClick = () => {
@@ -41,7 +41,7 @@ export default class Newsarea extends Component {
     }
 
     handlePageChange = (size) => {
-        this.setState({ pageSize: size });
+        this.setState({ pageSize: size, page: 1 });
         this.updateNews();
     }
 
@@ -70,6 +70,7 @@ export default class Newsarea extends Component {
                             <li><button className="dropdown-item" onClick={this.changeSize = () => this.handlePageChange(36)}>36</button></li>
                         </ul>
                     </div>
+                    <p className="text-muted">Showing page {`${this.state.page} of ${this.state.totalNumberOfPages}`}.</p>
                     <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div className="btn-group" role="group" aria-label="Basic example">
                             <button disabled={this.state.displayAsList} onClick={this.handleDisplayStyleChange} className={`btn btn-${this.props.theme==='light'?"dark":"light"} text-${this.props.theme}`}>List</button>

@@ -14,10 +14,10 @@ export default class Newsitem extends Component {
                         </div>
                         <div className="col-8">
                             <h4>{title}</h4>
-                            <span className="badge rounded-pill bg-primary">{source["name"]}</span>
+                            <span className={`badge rounded-pill bg-${bgColor === '#fff' ? "dark" : "light"} text-${bgColor === '#fff' ? "light" : "dark"}`}>{source["name"]}</span>
                             <p className="card-text">{description === null ? "No Description Available" : description}</p>
                             <p className="card-text"><small className="text-muted">{new Date(date).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' })} IST</small></p>
-                            <a href={url} target="_blank" rel="noreferrer" className="btn btn-primary">Read More</a>
+                            <a href={url} target="_blank" rel="noreferrer" className={`btn btn-${bgColor === '#fff' ? "dark" : "light"}`}>Read More</a>
                         </div>
                     </div>
                 </div> :
