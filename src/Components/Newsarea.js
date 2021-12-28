@@ -56,15 +56,15 @@ export default class Newsarea extends Component {
 
     render() {
         return (
-            <div className="container my-3">
-                <h1 className="text-center">RCC News - Top Headlines</h1>
+            <div className={`container my-3`}>
+                <h2 className={`text-center text-${this.props.theme==='light'?'dark':'light'}`}>React Class Based Componenets News App - Top Headlines</h2>
                 <div className="d-flex justify-content-between">
                     <div className="btn-group">
-                        <button type="button" className="btn btn-light">Posts Per Page: {this.state.pageSize}</button>
-                        <button type="button" className="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" className={`btn btn-${this.props.theme === 'light' ? "dark" : "light"}`}>Posts Per Page: {this.state.pageSize}</button>
+                        <button type="button" className={`btn btn-${this.props.theme === 'light' ? "dark" : "light"} dropdown-toggle dropdown-toggle-split`} data-bs-toggle="dropdown" aria-expanded="false">
                             <span className="visually-hidden">Posts Per Page</span>
                         </button>
-                        <ul className="dropdown-menu dropdown-menu-end">
+                        <ul className={`dropdown-menu ${this.props.theme === 'light' ? "" : "dropdown-menu-dark"} dropdown-menu-end`}>
                             <li><button className="dropdown-item" onClick={this.changeSize = () => this.handlePageChange(12)}>12</button></li>
                             <li><button className="dropdown-item" onClick={this.changeSize = () => this.handlePageChange(24)}>24</button></li>
                             <li><button className="dropdown-item" onClick={this.changeSize = () => this.handlePageChange(36)}>36</button></li>
@@ -72,8 +72,8 @@ export default class Newsarea extends Component {
                     </div>
                     <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div className="btn-group" role="group" aria-label="Basic example">
-                            <button disabled={this.state.displayAsList} onClick={this.handleDisplayStyleChange} className="btn btn-outline-light text-dark">List</button>
-                            <button disabled={!this.state.displayAsList} onClick={this.handleDisplayStyleChange} className="btn btn-outline-light text-dark">Card</button>
+                            <button disabled={this.state.displayAsList} onClick={this.handleDisplayStyleChange} className={`btn btn-${this.props.theme==='light'?"dark":"light"} text-${this.props.theme}`}>List</button>
+                            <button disabled={!this.state.displayAsList} onClick={this.handleDisplayStyleChange} className={`btn btn-${this.props.theme==='light'?"dark":"light"} text-${this.props.theme}`}>Card</button>
                         </div>
                     </div>
                 </div>
@@ -85,6 +85,8 @@ export default class Newsarea extends Component {
                     </div> : ""}
                     {this.state.articles.map((element) => {
                         return <Newsitem title={element.title}
+                            bgColor={this.props.theme==='light'?"#fff":"#181818"}
+                            fgColor={this.props.theme==='light'?"black":"white"}
                             description={element.description}
                             key={element.url}
                             urlToImage={element.urlToImage}
@@ -95,8 +97,8 @@ export default class Newsarea extends Component {
                     })}
                 </div>
                 <div className="d-flex justify-content-between">
-                    <button disabled={this.state.page <= 1} type="button" onClick={this.handlePrevClick} className="btn btn-light">&laquo; Previous</button>
-                    <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.state.pageSize)} type="button" onClick={this.handleNextClick} className="btn btn-light">Next &raquo;</button>
+                    <button disabled={this.state.page <= 1} type="button" onClick={this.handlePrevClick} className={`btn btn-${this.props.theme === 'light' ? "dark" : "light"}`}>&laquo; Previous</button>
+                    <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.state.pageSize)} type="button" onClick={this.handleNextClick} className={`btn btn-${this.props.theme === 'light' ? "dark" : "light"}`}>Next &raquo;</button>
                 </div>
             </div>
             
