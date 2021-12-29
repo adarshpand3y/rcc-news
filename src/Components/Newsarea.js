@@ -31,13 +31,15 @@ export default class Newsarea extends Component {
     }
 
     handleNextClick = () => {
-        this.setState({ page: this.state.page + 1 });
-        this.updateNews();
+        this.setState({ page: this.state.page + 1 }, () => {
+            this.updateNews();
+        });
     }
 
     handlePrevClick = () => {
-        this.setState({ page: this.state.page - 1 });
-        this.updateNews();
+        this.setState({ page: this.state.page - 1 }, () => {
+            this.updateNews();
+        });
     }
 
     handlePageChange = (size) => {
