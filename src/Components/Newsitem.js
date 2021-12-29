@@ -26,9 +26,10 @@ export default class Newsitem extends Component {
                         <img src={urlToImage} style={{ height: "250px", objectFit: "cover", overflow: "hidden" }} className="card-img-top" alt="Img Unavailable" />
                         <div className="card-body">
                             <h5 className="card-title">{title.length < 45 ? title : (title.slice(0, 45) + "...")}</h5>
+                            <span className={`badge rounded-pill bg-${bgColor === '#fff' ? "dark" : "light"} text-${bgColor === '#fff' ? "light" : "dark"}`}>{source["name"]}</span>
                             <p className="card-text">{description === null ? "No Description Available" : (description.length < 80 ? description : (description.slice(0, 80) + "..."))}</p>
                             <p className="card-text"><small className="text-muted">{new Date(date).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' })} IST</small></p>
-                            <a href={url} target="_blank" rel="noreferrer" className="btn btn-primary">Read More</a>
+                            <a href={url} target="_blank" rel="noreferrer" className={`btn btn-${bgColor === '#fff' ? "dark" : "light"}`}>Read More</a>
                         </div>
                     </div>
                 </div>
