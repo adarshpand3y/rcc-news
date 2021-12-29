@@ -41,8 +41,9 @@ export default class Newsarea extends Component {
     }
 
     handlePageChange = (size) => {
-        this.setState({ pageSize: size, page: 1 });
-        this.updateNews();
+        this.setState({ pageSize: size, page: 1 }, () => {
+            this.updateNews();
+        });
     }
 
     handleDisplayStyleChange = () => {
