@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Navbar from './Components/Navbar'
 import Newsarea from './Components/Newsarea'
 import LoadingBar from 'react-top-loading-bar'
@@ -8,75 +8,70 @@ import {
   Route
 } from "react-router-dom";
 
-export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      theme: 'light',
-      progress: 0,
-      displayAsList: true
-    }
-  }
+const App = () => {
 
-  changeTheme = () => {
-    if (this.state.theme === 'light') {
-      this.setState({ theme: 'dark' });
+  const [theme, setTheme] = useState('light');
+  const [progress, setProgress] = useState(0);
+  const [displayAsList, setDisplayAsList] = useState(true);
+
+  const changeTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
       document.body.style.backgroundColor = '#181818';
     }
     else {
-      this.setState({ theme: 'light' });
+      setTheme('light');
       document.body.style.backgroundColor = '#fff';
     }
   }
 
-  changeDisplay = () => {
-    if (this.state.displayAsList) {
-      this.setState({ displayAsList: false });
+  const changeDisplay = () => {
+    if (displayAsList) {
+      setDisplayAsList(false);
     }
     else {
-      this.setState({ displayAsList: true });
+      setDisplayAsList(true);
     }
   }
 
-  handleProgressChange = (value) => {
-    this.setState({progress: value});
+  const handleProgressChange = (value) => {
+    setProgress(value);
   }
 
-  render() {
-    return (
-      <>
+  return (
+    <>
       <LoadingBar
-          color="#f11946"
-          progress={this.state.progress}
-        />
-        <Router>
-          <Navbar changeDisplay={this.changeDisplay} displayAsList={this.state.displayAsList} theme={this.state.theme} switchThemeProp={this.changeTheme} />
-          <Switch>
-            <Route key="/" exact path="/">
-              <Newsarea displayAsList={this.state.displayAsList} changeDisplay={this.changeDisplay} setProgress={this.handleProgressChange} theme={this.state.theme} category="general" />
-            </Route>
-            <Route key="entertainment" exact path="/entertainment">
-              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="entertainment" />
-            </Route>
-            <Route key="business" exact path="/business">
-              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="business" />
-            </Route>
-            <Route key="health" exact path="/health">
-              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="health" />
-            </Route>
-            <Route key="science" exact path="/science">
-              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="science" />
-            </Route>
-            <Route key="sports" exact path="/sports">
-              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="sports" />
-            </Route>
-            <Route key="technology" exact path="/technology">
-              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="technology" />
-            </Route>
-          </Switch>
-        </Router>
-      </>
-    )
-  }
+        color="#f11946"
+        progress={progress}
+      />
+      <Router>
+        <Navbar changeDisplay={changeDisplay} displayAsList={displayAsList} theme={theme} switchThemeProp={changeTheme} />
+        <Switch>
+          <Route key="/" exact path="/">
+            <Newsarea displayAsList={displayAsList} changeDisplay={changeDisplay} setProgress={handleProgressChange} theme={theme} category="general" />
+          </Route>
+          <Route key="entertainment" exact path="/entertainment">
+            <Newsarea displayAsList={displayAsList} setProgress={handleProgressChange} theme={theme} category="entertainment" />
+          </Route>
+          <Route key="business" exact path="/business">
+            <Newsarea displayAsList={displayAsList} setProgress={handleProgressChange} theme={theme} category="business" />
+          </Route>
+          <Route key="health" exact path="/health">
+            <Newsarea displayAsList={displayAsList} setProgress={handleProgressChange} theme={theme} category="health" />
+          </Route>
+          <Route key="science" exact path="/science">
+            <Newsarea displayAsList={displayAsList} setProgress={handleProgressChange} theme={theme} category="science" />
+          </Route>
+          <Route key="sports" exact path="/sports">
+            <Newsarea displayAsList={displayAsList} setProgress={handleProgressChange} theme={theme} category="sports" />
+          </Route>
+          <Route key="technology" exact path="/technology">
+            <Newsarea displayAsList={displayAsList} setProgress={handleProgressChange} theme={theme} category="technology" />
+          </Route>
+        </Switch>
+      </Router>
+    </>
+  )
 }
 
+export default App;
