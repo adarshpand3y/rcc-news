@@ -16,7 +16,7 @@ export default class Navbar extends Component {
                                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">About</Link>
+                                <a role="button" className="nav-link" onClick={this.props.changeDisplay}>Switch to {this.props.displayAsList?"Card":"List"} View</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

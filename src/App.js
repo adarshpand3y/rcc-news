@@ -13,7 +13,8 @@ export default class App extends Component {
     super();
     this.state = {
       theme: 'light',
-      progress: 0
+      progress: 0,
+      displayAsList: true
     }
   }
 
@@ -28,9 +29,17 @@ export default class App extends Component {
     }
   }
 
+  changeDisplay = () => {
+    if (this.state.displayAsList) {
+      this.setState({ displayAsList: false });
+    }
+    else {
+      this.setState({ displayAsList: true });
+    }
+  }
+
   handleProgressChange = (value) => {
     this.setState({progress: value});
-    console.log("Progress set to", value);
   }
 
   render() {
@@ -41,28 +50,28 @@ export default class App extends Component {
           progress={this.state.progress}
         />
         <Router>
-          <Navbar theme={this.state.theme} switchThemeProp={this.changeTheme} />
+          <Navbar changeDisplay={this.changeDisplay} displayAsList={this.state.displayAsList} theme={this.state.theme} switchThemeProp={this.changeTheme} />
           <Switch>
             <Route key="/" exact path="/">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="general" />
+              <Newsarea displayAsList={this.state.displayAsList} changeDisplay={this.changeDisplay} setProgress={this.handleProgressChange} theme={this.state.theme} category="general" />
             </Route>
             <Route key="entertainment" exact path="/entertainment">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="entertainment" />
+              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="entertainment" />
             </Route>
             <Route key="business" exact path="/business">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="business" />
+              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="business" />
             </Route>
             <Route key="health" exact path="/health">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="health" />
+              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="health" />
             </Route>
             <Route key="science" exact path="/science">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="science" />
+              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="science" />
             </Route>
             <Route key="sports" exact path="/sports">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="sports" />
+              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="sports" />
             </Route>
             <Route key="technology" exact path="/technology">
-              <Newsarea setProgress={this.handleProgressChange} theme={this.state.theme} category="technology" />
+              <Newsarea displayAsList={this.state.displayAsList} setProgress={this.handleProgressChange} theme={this.state.theme} category="technology" />
             </Route>
           </Switch>
         </Router>

@@ -11,14 +11,9 @@ export default class Newsarea extends Component {
             page: 1,
             totalNumberOfPages: 0,
             pageSize: 12,
-            displayAsList: true,
             loading: true
         }
     }
-
-    // updateNews = async () => {
-    //     this.setState({ loading: true });
-    // }
 
     async componentDidMount() {
         this.props.setProgress(0);
@@ -38,15 +33,6 @@ export default class Newsarea extends Component {
         const data = await fetch(url);
         const parsedData = await data.json();
         this.setState({ articles: this.state.articles.concat(parsedData.articles) });
-    }
-
-    handleDisplayStyleChange = () => {
-        if (this.state.displayAsList) {
-            this.setState({ displayAsList: false });
-        }
-        else {
-            this.setState({ displayAsList: true });
-        }
     }
 
     render() {
@@ -73,15 +59,7 @@ export default class Newsarea extends Component {
                     <div className="container my-3">
                         <h2 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>React Class Based Componenets News App</h2>
                         <h2 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>Top {this.props.category[0].toUpperCase()+this.props.category.slice(1)} Headlines</h2>
-                        <div className="d-flex justify-content-between">
-                            <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                <div className="btn-group" role="group" aria-label="Basic example">
-                                    <button disabled={this.state.displayAsList} onClick={this.handleDisplayStyleChange} className={`btn btn-${this.props.theme === 'light' ? "dark" : "light"} text-${this.props.theme}`}>List</button>
-                                    <button disabled={!this.state.displayAsList} onClick={this.handleDisplayStyleChange} className={`btn btn-${this.props.theme === 'light' ? "dark" : "light"} text-${this.props.theme}`}>Card</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={this.state.displayAsList ? "" : "row"}>
+                        <div className={this.props.displayAsList ? "" : "row"}>
                             {this.state.articles.map((element) => {
                                 return <Newsitem title={element.title}
                                     bgColor={this.props.theme === 'light' ? "#fff" : "#181818"}
@@ -92,7 +70,7 @@ export default class Newsarea extends Component {
                                     url={element.url}
                                     source={element.source}
                                     date={element.publishedAt}
-                                    displayAsList={this.state.displayAsList} />
+                                    displayAsList={this.props.displayAsList} />
                             })}
                         </div>
                     </div>
