@@ -21,10 +21,15 @@ export default class Newsarea extends Component {
     // }
 
     async componentDidMount() {
+        this.props.setProgress(0);
+        this.props.setProgress(10);
         const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
         const data = await fetch(url);
+        this.props.setProgress(50);
         const parsedData = await data.json();
+        this.props.setProgress(70);
         this.setState({ totalResults: parsedData.totalResults, articles: parsedData.articles, totalNumberOfPages: Math.ceil(parsedData.totalResults / this.state.pageSize), loading: false });
+        this.props.setProgress(100);
     }
 
     fetchMoreData = async () => {
@@ -60,13 +65,14 @@ export default class Newsarea extends Component {
                         <>
                             <h5 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>That's all the news we have for now!</h5>
                             <h5 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>Thank you for using the React Class Based Components News App.</h5>
-                            <h6 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>Created by <a href="https://github.com/adarshpand3y" target="_blank" rel="noreferrer">Adarsh Pandey</a>.</h6>
+                            <h6 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>Created with ❤️ by <a href="https://github.com/adarshpand3y" target="_blank" rel="noreferrer">Adarsh Pandey</a>.</h6>
                             <h6 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'} mb-3`}><a href="https://github.com/adarshpand3y/rcc-news" target="_blank" rel="noreferrer">Github Repository</a> of this app.</h6>
                         </>
                       }
                 >
                     <div className="container my-3">
-                        <h2 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>React Class Based Componenets News App - Top Headlines</h2>
+                        <h2 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>React Class Based Componenets News App</h2>
+                        <h2 className={`text-center text-${this.props.theme === 'light' ? 'dark' : 'light'}`}>Top {this.props.category[0].toUpperCase()+this.props.category.slice(1)} Headlines</h2>
                         <div className="d-flex justify-content-between">
                             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                 <div className="btn-group" role="group" aria-label="Basic example">
