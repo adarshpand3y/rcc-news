@@ -6,7 +6,7 @@ const Newsarea = (props) => {
 
     const [totalResults, setTotalResults] = useState(1);
     const [articles, setArticles] = useState([]);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
 
     const updateNews = async () => {
         props.setProgress(0);
@@ -22,13 +22,12 @@ const Newsarea = (props) => {
     }
 
     useEffect((props) => {
-        console.log("useEffect CAlled");
         updateNews();
     }, []);
 
     const fetchMoreData = async () => {
+        const url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${page+1}&pageSize=12`;
         setPage(page + 1);
-        const url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=fb006d7d5f3841b28dc197c4bc9e3ceb&page=${page}&pageSize=12`;
         const data = await fetch(url);
         const parsedData = await data.json();
         setArticles(articles.concat(parsedData.articles));
@@ -48,14 +47,14 @@ const Newsarea = (props) => {
                 endMessage={
                     <>
                         <h5 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`}>That's all the news we have for now!</h5>
-                        <h5 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`}>Thank you for using the React Class Based Components News App.</h5>
+                        <h5 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`}>Thank you for using the React Function Based Components News App.</h5>
                         <h6 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`}>Created with ❤️ by <a href="https://github.com/adarshpand3y" target="_blank" rel="noreferrer">Adarsh Pandey</a>.</h6>
                         <h6 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'} mb-3`}><a href="https://github.com/adarshpand3y/rcc-news" target="_blank" rel="noreferrer">Github Repository</a> of this app.</h6>
                     </>
                 }
             >
                 <div className="container my-3">
-                    <h2 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`}>React Class Based Componenets News App</h2>
+                    <h2 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`} style={{marginTop: "80px"}}>React Function Based Componenets News App</h2>
                     <h2 className={`text-center text-${props.theme === 'light' ? 'dark' : 'light'}`}>Top {props.category[0].toUpperCase() + props.category.slice(1)} Headlines</h2>
                     <div className={props.displayAsList ? "" : "row"}>
                         {articles.map((element) => {

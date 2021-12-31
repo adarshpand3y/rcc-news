@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
     return (
-        <nav className={`navbar navbar-expand-lg navbar-${props.theme} bg-${props.theme}`}>
+        <nav className={`navbar fixed-top navbar-expand-lg navbar-${props.theme} bg-${props.theme}`}>
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/" style={{ fontWeight: 600 }}>RCC News App</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

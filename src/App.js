@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 import Navbar from './Components/Navbar'
 import Newsarea from './Components/Newsarea'
 import LoadingBar from 'react-top-loading-bar'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
 
